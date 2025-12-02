@@ -1,8 +1,10 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model, Types } from 'mongoose';
+
 const assignmentSchema = new Schema({
-  course: { type: Types.ObjectId, ref: "Course" },
-  module: { type: Types.ObjectId },
-  title: String,
-  description: String,
-});
-export const Assignment = model("Assignment", assignmentSchema);
+title: { type: String, required: true },
+module: { type: Types.ObjectId, ref: 'Module', required: true },
+description: { type: String },
+submissionType: { type: String, enum: ['text', 'link'], default: 'text' },
+}, { timestamps: true });
+
+export const Assignment = model('Assignment', assignmentSchema);
