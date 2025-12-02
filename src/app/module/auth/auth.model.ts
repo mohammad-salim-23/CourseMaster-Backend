@@ -29,7 +29,7 @@ const userAuthSchema = new Schema <TUser>({
 },{
     timestamps:true
 });
-userAuthSchema.statics.isUserExistByEmail = async function (email:string){
+userAuthSchema.statics.isUserExistsByEmail = async function (email:string){
     return await User.findOne({email:email});
 };
 userAuthSchema.statics.isPasswordMatched = async function (
