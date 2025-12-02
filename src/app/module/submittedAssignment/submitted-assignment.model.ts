@@ -5,7 +5,7 @@ const submittedAssignmentSchema = new Schema({
   module: { type: Types.ObjectId },
   student: { type: Types.ObjectId, ref: "User" },
 
-  answerLink: String,   // Google Drive link
+  answerLink: String,   
   textAnswer: String,
 
   submittedAt: { type: Date, default: Date.now }
