@@ -3,17 +3,45 @@ import catchAsync from "../../catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { AuthServices } from "./auth.service";
 
+const sendEmail = require('../../utils/sendEmail'); 
+
 const registerUser = catchAsync(async(req,res)=>{
+    
+    // User Registration Logic 
     const result = await AuthServices.registerUser(req.body);
-    //extract fields
+    
+    // Extract Fields
     const filteredData = {
         _id:result._id,
         name:result.name,
         email:result.email,
     };
+    
+    // --Welcome Email Logic Start ---
+    
+    const welcomeSubject = `🎉 Welcome to ChefBuddy, ${filteredData.name}!`;
+    
+    const welcomeHtml = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2>Hello ${filteredData.name},</h2>
+            <p>Thank you for successfully signing up for CourseMaster!</p>
+            <p>We are excited to help you find the best learning strategy and careear tips.</p>
+            <p style="margin-top: 20px;">Happy Learning!</p>
+            <p>Best Regards,<br>The CourseMaster Team</p>
+        </div>
+    `;
+
+    sendEmail(filteredData.email, welcomeSubject, welcomeHtml)
+        .catch((err: any) => {
+
+            console.error(`Error in async email job for ${filteredData.email}:`, err.message);
+        });
+
+    // -- Welcome Email Logic End ---
+    
     sendResponse(res,{
         success:true,
-        message:'User registered successfully',
+        message:'User registered successfully. A welcome email is being sent.',
         statusCode:201,
         data:filteredData
     });
