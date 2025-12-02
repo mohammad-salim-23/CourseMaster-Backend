@@ -6,10 +6,7 @@ videoUrl: z.string(),
 isFreePreview: z.boolean().optional()
 });
 
-export const moduleValidation = z.object({
-title: z.string(),
-lessons: z.array(lessonValidation)
-});
+
 
 export const batchValidation = z.object({
 name: z.string(),
@@ -23,7 +20,7 @@ instructor: z.string(),
 price: z.number(),
 category: z.string().optional(),
 tags: z.array(z.string()).optional(),
-modules: z.array(moduleValidation).optional(),
+
 batches: z.array(batchValidation).optional(),
 });
 

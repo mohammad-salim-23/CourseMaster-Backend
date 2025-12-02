@@ -11,4 +11,5 @@ router.get('/:id', CourseController.getOne);
 router.patch('/:id',auth("admin"), CourseController.update);
 router.delete('/:id',auth("admin"), CourseController.delete);
 
-export default router;
+
+export const courseRoutes= router;
