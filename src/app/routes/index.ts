@@ -5,6 +5,8 @@ import { moduleRoute } from '../module/course/module/module.route';
 import { enrollmentRoutes } from '../module/enrollment/enrollment.route';
 import { assignmentRoute } from '../module/assignment/assignment.route';
 import { quizRoute } from '../module/quiz/quiz.route';
+import { quizSubmitRoute } from '../module/submitQuiz/quizSubmit.route';
+import { assignmentSubmissionRoute } from '../module/submittedAssignment/assignmentSubmission.route';
 
 
 const router = Router();
@@ -33,6 +35,14 @@ const moduleRoutes = [
     {
         path:"/quiz",
         route:quizRoute
+    },
+    {
+        path:"/quiz-submission",
+        route:quizSubmitRoute
+    },
+    {
+        path:"/assignment-submission",
+        route:assignmentSubmissionRoute
     }
 ];
 moduleRoutes.forEach((route)=>router.use(route.path,route.route));

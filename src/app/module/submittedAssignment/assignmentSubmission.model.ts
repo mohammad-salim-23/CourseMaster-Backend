@@ -5,7 +5,7 @@ const assignmentSubmissionSchema = new Schema({
   module: { type: Types.ObjectId, ref: "Module", required: true },
   assignment: { type: Types.ObjectId, ref: "Assignment", required: true },
 
-  answer: { type: String, required: true }, 
+  answer: { type: String, required: true }, // text or drive link
   status: { type: String, enum: ["submitted", "reviewed"], default: "submitted" },
   marks: { type: Number, default: null },
 

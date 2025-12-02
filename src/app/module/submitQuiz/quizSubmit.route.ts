@@ -13,3 +13,4 @@ router.get('/quiz/:quizId', QuizSubmissionController.getQuizSubmissions);
 
 // Get a specific submission of a user for a quiz
 router.get('/user/:userId/quiz/:quizId', QuizSubmissionController.getSubmission);
+export const quizSubmitRoute = router;
