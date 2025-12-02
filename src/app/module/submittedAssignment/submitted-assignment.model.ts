@@ -1,14 +1,17 @@
 import { Schema, model, Types } from "mongoose";
-const submittedAssignmentSchema = new Schema({
-  assignment: { type: Types.ObjectId, ref: "Assignment" },
-  course: { type: Types.ObjectId, ref: "Course" },
-  module: { type: Types.ObjectId },
-  student: { type: Types.ObjectId, ref: "User" },
 
-  answerLink: String,   
-  textAnswer: String,
+const assignmentSubmissionSchema = new Schema({
+  user: { type: Types.ObjectId, ref: "User", required: true },
+  module: { type: Types.ObjectId, ref: "Module", required: true },
+  assignment: { type: Types.ObjectId, ref: "Assignment", required: true },
 
-  submittedAt: { type: Date, default: Date.now }
-});
+  answer: { type: String, required: true }, 
+  status: { type: String, enum: ["submitted", "reviewed"], default: "submitted" },
+  marks: { type: Number, default: null },
 
-export const SubmittedAssignment = model("SubmittedAssignment", submittedAssignmentSchema);
+}, { timestamps: true });
+
+export const AssignmentSubmission = model(
+  "AssignmentSubmission",
+  assignmentSubmissionSchema
+);
