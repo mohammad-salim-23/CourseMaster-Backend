@@ -6,5 +6,7 @@ const router = Router();
 
 router.post("/", auth("admin"),ModuleController.create);
 router.get("/course/:courseId", ModuleController.getByCourse);
-router.patch("/:id", ModuleController.update);
-router.delete("/:id", ModuleController.delete);
+router.patch("/:id",auth("admin"), ModuleController.update);
+router.delete("/:id",auth("admin"), ModuleController.delete);
+
+export const moduleRoute = router;
