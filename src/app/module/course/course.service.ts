@@ -1,24 +1,44 @@
 import { Course } from "./course.model";
 
+interface CourseQuery {
+    search?: string;
+    category?: string;
+    instructor?: string;
+   
+    lastSeenDate?: string; 
+   
+}
 
 export const CourseService = {
 async createCourse(data: any) {
 return await Course.create(data);
 },
 
-async getAllCourses(query: any) {
-const filters: any = {};
+async getAllCourses(query: CourseQuery) {
+        const filters: any = {};
+      
+        const limit = 10; 
+        
+        // Basic Filters ---
+        if (query.search) {
+            filters.$text = { $search: query.search };
+        }
+        if (query.category) filters.category = query.category;
+        if (query.instructor) filters.instructor = query.instructor;
 
-if (query.search) {
-filters.$text = { $search: query.search };
-}
 
-if (query.category) filters.category = query.category;
-if (query.instructor) filters.instructor = query.instructor;
+        // Pagination Logic 
+      
+        if (query.lastSeenDate) {
+            filters.createdAt = { $lt: new Date(query.lastSeenDate) };
+        }
+        
 
-return await Course.find(filters);
-},
-
+        return await Course.find(filters)
+            .sort({ createdAt: -1 }) 
+            .limit(limit)
+            .lean();
+    },
 async getSingleCourse(id: string) {
 return await Course.findById(id);
 },

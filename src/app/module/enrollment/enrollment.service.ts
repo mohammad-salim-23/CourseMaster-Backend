@@ -10,7 +10,9 @@ return enrollment;
 getUserEnrollments: async (userId: string) => {
 return Enrollment.find({ user: userId }).populate('course').populate('batch');
 },
-
+getAllEnrollments: async () => {
+return Enrollment.find().populate('user').populate('course').populate('batch');
+},
 getEnrollment: async (userId: string, courseId: string) => {
 return Enrollment.findOne({ user: userId, course: courseId }).populate('completedModules').populate('batch');
 },

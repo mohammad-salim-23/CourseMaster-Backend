@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { QuizSubmissionController } from "./quizSubmit.controller";
+import auth from "../../middleware/auth";
 
 const router = Router();
 // Submit a quiz
-router.post('/submit', QuizSubmissionController.submitQuiz);
+router.post('/submit',auth("user","admin"), QuizSubmissionController.submitQuiz);
 
 // Get all submissions of a user
 router.get('/user/:userId', QuizSubmissionController.getUserSubmissions);

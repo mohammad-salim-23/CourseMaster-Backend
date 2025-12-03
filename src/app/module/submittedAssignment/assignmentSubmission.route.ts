@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { AssignmentSubmissionController } from "./assignmentSubmission.controller";
+import auth from "../../middleware/auth";
 
 const router = Router();
 
 // User submits assignment
-router.post("/submit", AssignmentSubmissionController.submit);
+router.post("/submit",auth("user","admin"), AssignmentSubmissionController.submit);
 
 // Update marks (admin/instructor)
-router.put("/:id/marks", AssignmentSubmissionController.updateMarks);
+router.patch("/:id/marks",auth("admin"), AssignmentSubmissionController.updateMarks);
 
 // Get submissions of a user
 router.get("/user/:userId", AssignmentSubmissionController.getUserSubmissions);

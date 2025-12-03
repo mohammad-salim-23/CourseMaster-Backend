@@ -19,7 +19,14 @@ res.json({ success: true, data: result });
 res.status(400).json({ success: false, message: error.message });
 }
 },
-
+getAllEnrollments: async(req:any,res:any)=>{
+    try{
+        const result = await EnrollmentService.getAllEnrollments();
+        res.json({success:true, data:result});
+    }catch(error:any){
+        res.status(400).json({success:false,message:error?.message});
+    }
+},
 getEnrollment: async (req: any, res: any) => {
 try {
 const result = await EnrollmentService.getEnrollment(req.params.userId, req.params.courseId);

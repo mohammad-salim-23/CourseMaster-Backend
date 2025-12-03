@@ -3,6 +3,7 @@ const app: Application = express();
 import cors from 'cors';
 import router from './app/routes';
 import notFound from './app/middleware/notFound';
+import globalErrorHandler from './app/middleware/globalErrorHandler';
 
 app.use(cors({
     origin: ['http://localhost:3000'],
@@ -13,5 +14,6 @@ app.use('/api',router);
 app.get('/',(req,res)=>{
     res.send('Service Manage API is running...');
 })
+app.use(globalErrorHandler);
 app.use(notFound);
 export default app;

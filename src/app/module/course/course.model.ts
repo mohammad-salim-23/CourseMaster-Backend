@@ -28,5 +28,15 @@ createdBy: { type: Types.ObjectId, ref: "User" },
 }, { timestamps: true });
 
 courseSchema.index({ title: "text", description: "text" });
-
+courseSchema.statics.getPopularCourses = async function(limit: number, lastSeenDate?: Date) {
+    const query: any = {};
+    if (lastSeenDate) query.createdAt = { $lt: lastSeenDate }; 
+    
+    // Sort by createdAt (latest first)
+    return this.find(query)
+               .sort({ createdAt: -1 }) 
+               .limit(limit)
+             
+               .lean();
+};
 export const Course = model("Course", courseSchema);
