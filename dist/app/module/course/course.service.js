@@ -20,14 +20,23 @@ exports.CourseService = {
     getAllCourses(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const filters = {};
+            const limit = 10;
+            // Basic Filters ---
             if (query.search) {
-                filters.$text = { $search: query.search };
+                filters.$text = { $search: query.search, $options: "i" };
             }
             if (query.category)
                 filters.category = query.category;
             if (query.instructor)
                 filters.instructor = query.instructor;
-            return yield course_model_1.Course.find(filters);
+            // Pagination Logic 
+            if (query.lastSeenDate) {
+                filters.createdAt = { $lt: new Date(query.lastSeenDate) };
+            }
+            return yield course_model_1.Course.find(filters)
+                .sort({ createdAt: -1 })
+                .limit(limit)
+                .lean();
         });
     },
     getSingleCourse(id) {

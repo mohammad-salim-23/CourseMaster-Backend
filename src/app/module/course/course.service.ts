@@ -21,7 +21,7 @@ async getAllCourses(query: CourseQuery) {
         
         // Basic Filters ---
         if (query.search) {
-            filters.$text = { $search: query.search };
+            filters.$text = { $search: query.search,$options:"i" };
         }
         if (query.category) filters.category = query.category;
         if (query.instructor) filters.instructor = query.instructor;
