@@ -3,10 +3,21 @@ import { AssignmentSubmissionService } from "./assignmentSubmission.service";
 export const AssignmentSubmissionController = {
   submit: async (req: any, res: any) => {
     try {
-      const result = await AssignmentSubmissionService.submitAssignment(req.body);
+      const userId = req.user.userId; 
+
+      const payload = {
+        user: userId,
+        module: req.body.module,
+        assignment: req.body.assignment,
+        answer: req.body.answer,
+      };
+
+      const result = await AssignmentSubmissionService.submitAssignment(payload);
+
       res.json({ success: true, data: result });
-    } catch (e: any) {
-      res.status(400).json({ success: false, message: e.message });
+
+    } catch (err: any) {
+      res.status(400).json({ success: false, message: err.message });
     }
   },
 

@@ -3,8 +3,14 @@ import { QuizSubmissionService } from "./quizSubmit.service";
 export const QuizSubmissionController = {
 submitQuiz: async (req: any, res: any) => {
 try {
-const { userId, moduleId, quizId, answers } = req.body;
-const result = await QuizSubmissionService.submitQuiz(userId, moduleId, quizId, answers);
+const userId = req.user.userId;
+const payload = {
+        user: userId,
+        moduleId: req.body.module,
+        quizId: req.body.quiz,
+        answers: req.body.answer,
+      };
+const result = await QuizSubmissionService.submitQuiz(payload);
 res.json({ success: true, data: result });
 } catch (err: any) {
 res.status(400).json({ success: false, message: err.message });
