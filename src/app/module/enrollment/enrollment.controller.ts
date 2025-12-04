@@ -3,8 +3,9 @@ import { EnrollmentService } from "./enrollment.service";
 export const EnrollmentController = {
 enroll: async (req: any, res: any) => {
 try {
-const { userId, courseId, batchId } = req.body;
-const result = await EnrollmentService.enrollUser(userId, courseId, batchId);
+const userId = req.user.userId;
+const { course } = req.body;
+const result = await EnrollmentService.enrollUser(userId, course );
 res.json({ success: true, data: result });
 } catch (error: any) {
 res.status(400).json({ success: false, message: error.message });

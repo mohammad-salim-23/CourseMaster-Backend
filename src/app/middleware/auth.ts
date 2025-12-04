@@ -36,7 +36,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
         console.log("Decoded Token:", decoded);
 
-        const { role, userEmail , name} = decoded;
+        const { role, userEmail , name,id} = decoded;
 
         // Check if user exists
         const user = await User.isUserExistsByEmail(userEmail);
@@ -59,7 +59,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
 
         // Attach user info to request object
         req.user = {
-            id: user.id,
+            userId: user.id,
             name:user?.name,
             email: user.email,
             role: user.role,

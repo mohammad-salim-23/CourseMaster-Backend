@@ -2,8 +2,8 @@ import { Module } from "../course/module/module.model";
 import { Enrollment } from "./enrollment.model";
 
 export const EnrollmentService = {
-enrollUser: async (userId: string, courseId: string, batchId: string) => {
-const enrollment = await Enrollment.create({ user: userId, course: courseId, batch: batchId });
+enrollUser: async (userId: string, courseId: string) => {
+const enrollment = await Enrollment.create({ user: userId, course: courseId});
 return enrollment;
 },
 
