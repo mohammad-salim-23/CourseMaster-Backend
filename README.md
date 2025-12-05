@@ -52,6 +52,8 @@ DATABASE_URL=mongodb+srv://your-db-url
 
 BCRYPT_SALT_ROUNDS=10
 
+
+
 JWT_ACCESS_SECRET=your-secret-key
 JWT_ACCESS_EXPIRES_IN=1d
 
