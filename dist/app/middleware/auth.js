@@ -38,7 +38,7 @@ const auth = (...requiredRoles) => {
             throw new AppError_1.default(http_status_codes_1.StatusCodes.UNAUTHORIZED, 'Invalid or expired token');
         }
         console.log("Decoded Token:", decoded);
-        const { role, userEmail, name } = decoded;
+        const { role, userEmail, name, id } = decoded;
         // Check if user exists
         const user = yield auth_model_1.User.isUserExistsByEmail(userEmail);
         if (!user) {
@@ -54,7 +54,7 @@ const auth = (...requiredRoles) => {
         }
         // Attach user info to request object
         req.user = {
-            id: user.id,
+            userId: user.id,
             name: user === null || user === void 0 ? void 0 : user.name,
             email: user.email,
             role: user.role,

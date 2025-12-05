@@ -14,7 +14,23 @@ const assignmentSubmission_service_1 = require("./assignmentSubmission.service")
 exports.AssignmentSubmissionController = {
     submit: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const result = yield assignmentSubmission_service_1.AssignmentSubmissionService.submitAssignment(req.body);
+            const userId = req.user.userId;
+            const payload = {
+                user: userId,
+                module: req.body.module,
+                assignment: req.body.assignment,
+                answer: req.body.answer,
+            };
+            const result = yield assignmentSubmission_service_1.AssignmentSubmissionService.submitAssignment(payload);
+            res.json({ success: true, data: result });
+        }
+        catch (err) {
+            res.status(400).json({ success: false, message: err.message });
+        }
+    }),
+    getAllSubmissions: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const result = yield assignmentSubmission_service_1.AssignmentSubmissionService.getAllSubmissions();
             res.json({ success: true, data: result });
         }
         catch (e) {

@@ -13,8 +13,8 @@ exports.EnrollmentService = void 0;
 const module_model_1 = require("../course/module/module.model");
 const enrollment_model_1 = require("./enrollment.model");
 exports.EnrollmentService = {
-    enrollUser: (userId, courseId, batchId) => __awaiter(void 0, void 0, void 0, function* () {
-        const enrollment = yield enrollment_model_1.Enrollment.create({ user: userId, course: courseId, batch: batchId });
+    enrollUser: (userId, courseId) => __awaiter(void 0, void 0, void 0, function* () {
+        const enrollment = yield enrollment_model_1.Enrollment.create({ user: userId, course: courseId });
         return enrollment;
     }),
     getUserEnrollments: (userId) => __awaiter(void 0, void 0, void 0, function* () {

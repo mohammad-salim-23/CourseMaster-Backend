@@ -14,8 +14,23 @@ const quizSubmit_service_1 = require("./quizSubmit.service");
 exports.QuizSubmissionController = {
     submitQuiz: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { userId, moduleId, quizId, answers } = req.body;
-            const result = yield quizSubmit_service_1.QuizSubmissionService.submitQuiz(userId, moduleId, quizId, answers);
+            const userId = req.user.userId;
+            const payload = {
+                user: userId,
+                moduleId: req.body.moduleId,
+                quizId: req.body.quizId,
+                answers: req.body.answers,
+            };
+            const result = yield quizSubmit_service_1.QuizSubmissionService.submitQuiz(payload);
+            res.json({ success: true, data: result });
+        }
+        catch (err) {
+            res.status(400).json({ success: false, message: err.message });
+        }
+    }),
+    getAllSubmissions: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const result = yield quizSubmit_service_1.QuizSubmissionService.getAllSubmissions();
             res.json({ success: true, data: result });
         }
         catch (err) {

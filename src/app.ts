@@ -6,7 +6,7 @@ import notFound from './app/middleware/notFound';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://coursemaster-gamma.vercel.app','http://localhost:3000'],
     credentials:true
 }))
 app.use(express.json());

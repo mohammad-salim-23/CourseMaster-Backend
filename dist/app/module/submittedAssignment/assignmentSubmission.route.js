@@ -18,4 +18,6 @@ router.get("/user/:userId", assignmentSubmission_controller_1.AssignmentSubmissi
 router.get("/module/:moduleId", assignmentSubmission_controller_1.AssignmentSubmissionController.getModuleSubmissions);
 // Get a specific submission for a specific assignment
 router.get("/user/:userId/assignment/:assignmentId", assignmentSubmission_controller_1.AssignmentSubmissionController.getSingleSubmission);
+//get all assignments submissions
+router.get("/", (0, auth_1.default)("admin"), assignmentSubmission_controller_1.AssignmentSubmissionController.getAllSubmissions);
 exports.assignmentSubmissionRoute = router;

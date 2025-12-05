@@ -18,6 +18,12 @@ exports.AssignmentSubmissionService = {
     updateMarks: (id, marks) => __awaiter(void 0, void 0, void 0, function* () {
         return assignmentSubmission_model_1.AssignmentSubmission.findByIdAndUpdate(id, { marks, status: "reviewed" }, { new: true });
     }),
+    getAllSubmissions: () => __awaiter(void 0, void 0, void 0, function* () {
+        return assignmentSubmission_model_1.AssignmentSubmission.find()
+            .populate("user")
+            .populate("module")
+            .populate("assignment");
+    }),
     getUserSubmissions: (userId) => __awaiter(void 0, void 0, void 0, function* () {
         return assignmentSubmission_model_1.AssignmentSubmission.find({ user: userId })
             .populate("module")

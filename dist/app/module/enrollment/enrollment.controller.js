@@ -14,8 +14,9 @@ const enrollment_service_1 = require("./enrollment.service");
 exports.EnrollmentController = {
     enroll: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const { userId, courseId, batchId } = req.body;
-            const result = yield enrollment_service_1.EnrollmentService.enrollUser(userId, courseId, batchId);
+            const userId = req.user.userId;
+            const { course } = req.body;
+            const result = yield enrollment_service_1.EnrollmentService.enrollUser(userId, course);
             res.json({ success: true, data: result });
         }
         catch (error) {

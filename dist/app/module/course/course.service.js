@@ -23,7 +23,9 @@ exports.CourseService = {
             const limit = 10;
             // Basic Filters ---
             if (query.search) {
-                filters.$text = { $search: query.search, $options: "i" };
+                filters.$or = [
+                    { title: { $regex: query.search, $options: "i" } },
+                ];
             }
             if (query.category)
                 filters.category = query.category;

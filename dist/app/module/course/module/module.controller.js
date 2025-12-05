@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModuleController = void 0;
+const sendResponse_1 = __importDefault(require("../../../utils/sendResponse"));
 const module_service_1 = require("./module.service");
 exports.ModuleController = {
     create: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,6 +33,15 @@ exports.ModuleController = {
         catch (error) {
             res.status(400).json({ success: false, message: error.message });
         }
+    }),
+    getModuleDetails: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a, _b;
+        const userId = ((_a = req.user) === null || _a === void 0 ? void 0 : _a.userId) || ((_b = req.user) === null || _b === void 0 ? void 0 : _b.id) || null;
+        const moduleId = req.params.id;
+        const result = yield module_service_1.ModuleService.getModuleDetails(moduleId, userId);
+        if (!result)
+            return (0, sendResponse_1.default)(res, { success: false, message: "Module not found", statusCode: 404 });
+        (0, sendResponse_1.default)(res, { success: true, message: "Module details", statusCode: 200, data: result });
     }),
     update: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {

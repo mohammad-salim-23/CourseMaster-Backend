@@ -12,4 +12,5 @@ router.post("/", (0, auth_1.default)("admin"), module_controller_1.ModuleControl
 router.get("/course/:courseId", module_controller_1.ModuleController.getByCourse);
 router.patch("/:id", (0, auth_1.default)("admin"), module_controller_1.ModuleController.update);
 router.delete("/:id", (0, auth_1.default)("admin"), module_controller_1.ModuleController.delete);
+router.get("/:id/details", (0, auth_1.default)("user", "admin"), module_controller_1.ModuleController.getModuleDetails);
 exports.moduleRoute = router;
