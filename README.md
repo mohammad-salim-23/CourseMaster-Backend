@@ -1,5 +1,6 @@
 
 📘 CourseMaster Backend
+
 CourseMaster is a full-featured educational learning platform backend, built with Node.js, Express.js, MongoDB, and secure JWT authentication.
 This backend powers a complete e-learning system with:
 User authentication & authorization (Admin/User)
@@ -9,6 +10,7 @@ Enrollment system
 Quiz & assignment features
 Quiz submissions & assignment submissions
 Module progress tracking
+
 🚀 Tech Stack
 Node.js
 Express.js
@@ -16,6 +18,7 @@ MongoDB + Mongoose
 JWT Authentication
 Zod Validation
 TypeScript (optional)
+
 📂 Project Structure
 src/
 │── module/
@@ -30,12 +33,16 @@ src/
 │── utils/
 │── app.ts
 │── server.ts
+
 🛠 Installation & Setup
 1️⃣ Clone Repo
 git clone https://github.com/mohammad-salim-23/CourseMaster-Backend.git
 cd CourseMaster-Backend
+
 2️⃣ Install Dependencies
 npm install
+
+
 3️⃣ Create a .env file
 Create a .env file in the root directory:
 NODE_ENV=development
@@ -47,12 +54,16 @@ BCRYPT_SALT_ROUNDS=10
 
 JWT_ACCESS_SECRET=your-secret-key
 JWT_ACCESS_EXPIRES_IN=1d
+
+
 4️⃣ Run Project
 Development
 npm run start:dev
 Production
 npm run build
 npm start
+
+
 🔐 Authentication
 POST /auth/register
 Registers a new user
@@ -62,6 +73,8 @@ Body:
   "email": "test@gmail.com",
   "password": "123456"
 }
+
+
 POST /auth/login
 Logs user in and returns access token
 GET /auth/users
@@ -70,6 +83,8 @@ PATCH /auth/users/:id
 Update user status (block/unblock)
 POST /auth/change-password
 Authenticated users can change password
+
+
 📘 Course Routes
 POST /course/
 Admin — Create course
@@ -81,6 +96,9 @@ PATCH /course/:id
 Admin — Update course
 DELETE /course/:id
 Admin — Delete course
+
+
+
 📦 Module Routes
 POST /module/
 Admin — Create module
@@ -93,6 +111,9 @@ Admin — Update module
 DELETE /module/:id
 Admin — Delete module
 🎓 Enrollment Routes
+
+
+
 POST /enrollment/
 User enrolls in a course
 GET /enrollment/user/:userId
@@ -104,6 +125,8 @@ Admin — Get all enrollments
 POST /enrollment/complete-module
 Mark module as completed
 📝 Quiz Routes
+
+
 POST /quiz/
 Admin — Create quiz
 GET /quiz/module/:moduleId
@@ -112,6 +135,8 @@ PATCH /quiz/:id
 Admin — Update quiz
 DELETE /quiz/:id
 Admin — Delete quiz
+
+
 🧪 Quiz Submission Routes
 POST /quiz-submission/submit
 User submits quiz
@@ -123,6 +148,8 @@ GET /quiz-submission/all
 Admin — All quiz submissions
 GET /quiz-submission/user/:userId/quiz/:quizId
 Get user’s single quiz submission
+
+
 📚 Assignment Routes
 POST /assignment/
 Admin — Create assignment
@@ -132,6 +159,8 @@ PATCH /assignment/:id
 Admin — Update assignment
 DELETE /assignment/:id
 Admin — Delete assignment
+
+
 📤 Assignment Submission Routes
 POST /assignment-submission/submit
 User submits assignment

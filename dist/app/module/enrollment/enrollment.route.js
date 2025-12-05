@@ -9,7 +9,7 @@ const enrollment_controller_1 = require("./enrollment.controller");
 const auth_1 = __importDefault(require("../../middleware/auth"));
 const router = (0, express_1.Router)();
 // Enroll user in course with batch
-router.post('/', (0, auth_1.default)("user"), enrollment_controller_1.EnrollmentController.enroll);
+router.post('/', (0, auth_1.default)("user", "admin"), enrollment_controller_1.EnrollmentController.enroll);
 // Get all enrollments of user
 router.get('/user/:userId', (0, auth_1.default)("user", "admin"), enrollment_controller_1.EnrollmentController.getUserEnrollments);
 // Get specific enrollment for a course
