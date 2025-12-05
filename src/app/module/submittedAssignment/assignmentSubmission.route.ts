@@ -21,4 +21,6 @@ router.get(
   "/user/:userId/assignment/:assignmentId",
   AssignmentSubmissionController.getSingleSubmission
 );
+//get all assignments submissions
+router.get("/", auth("admin"), AssignmentSubmissionController.getAllSubmissions);
 export const assignmentSubmissionRoute = router;

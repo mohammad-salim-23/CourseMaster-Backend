@@ -6,15 +6,23 @@ try {
 const userId = req.user.userId;
 const payload = {
         user: userId,
-        moduleId: req.body.module,
-        quizId: req.body.quiz,
-        answers: req.body.answer,
+        moduleId: req.body.moduleId,
+        quizId: req.body.quizId,
+        answers: req.body.answers,
       };
 const result = await QuizSubmissionService.submitQuiz(payload);
 res.json({ success: true, data: result });
 } catch (err: any) {
 res.status(400).json({ success: false, message: err.message });
 }
+},
+getAllSubmissions: async (req: any, res: any) => {
+  try {
+    const result = await QuizSubmissionService.getAllSubmissions();
+    res.json({ success: true, data: result });
+  } catch (err: any) {
+    res.status(400).json({ success: false, message: err.message });
+  }
 },
 
 getUserSubmissions: async (req: any, res: any) => {

@@ -1,3 +1,4 @@
+import { AssignmentSubmission } from "./assignmentSubmission.model";
 import { AssignmentSubmissionService } from "./assignmentSubmission.service";
 
 export const AssignmentSubmissionController = {
@@ -20,6 +21,14 @@ export const AssignmentSubmissionController = {
       res.status(400).json({ success: false, message: err.message });
     }
   },
+getAllSubmissions: async (req: any, res: any) => {
+  try {
+    const result = await AssignmentSubmissionService.getAllSubmissions();
+    res.json({ success: true, data: result });
+  } catch (e: any) {
+    res.status(400).json({ success: false, message: e.message });
+  }
+},
 
   updateMarks: async (req: any, res: any) => {
     try {

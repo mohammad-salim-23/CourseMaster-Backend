@@ -11,6 +11,8 @@ router.get('/user/:userId', QuizSubmissionController.getUserSubmissions);
 
 // Get all submissions for a quiz
 router.get('/quiz/:quizId', QuizSubmissionController.getQuizSubmissions);
+// Get all quiz submissions (
+router.get('/all', auth("admin"), QuizSubmissionController.getAllSubmissions);
 
 // Get a specific submission of a user for a quiz
 router.get('/user/:userId/quiz/:quizId', QuizSubmissionController.getSubmission);

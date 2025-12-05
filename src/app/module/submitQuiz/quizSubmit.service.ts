@@ -4,49 +4,49 @@ import { QuizSubmission } from "./quizSubmit.model";
 
 export const QuizSubmissionService = {
 submitQuiz: async (payload: any) => {
-    const { user, module, quiz, answers } = payload;
 
-    // Ensure quiz exists
-    const quizData = await Quiz.findById(quiz);
-    if (!quizData) throw new Error("Quiz not found");
+    const { quizId, moduleId, user, answers } = payload;
 
-    // Evaluate answers
+    const quiz = await Quiz.findById(quizId);
+    console.log(">>>",quiz);
+    if (!quiz) throw new Error("Quiz not found");
+
+    // Calculate score + include correctAnswer
     let score = 0;
-
     const evaluatedAnswers = answers.map((a: any) => {
-      const question = quizData.questions.find(
-        (q: any) => q._id.toString() === a.questionId
-      );
+      const q = quiz.questions.find((qq: any) => qq.question === a.question);
+        const correctIndex = Number(q?.correctAnswer) - 1;
+       const correctAnswer = q?.options[correctIndex];
+      const isCorrect = correctAnswer === a.selectedOption;
 
-      if (!question) {
-        return {
-          questionId: a.questionId,
-          selectedOption: a.selectedOption,
-          isCorrect: false,
-        };
-      }
-
-      const isCorrect = question.correctAnswer === a.selectedOption;
       if (isCorrect) score += 1;
 
       return {
-        questionId: a.questionId,
+        question: a.question,
         selectedOption: a.selectedOption,
         isCorrect,
+        correctAnswer,
       };
     });
 
     // Save submission
     const submission = await QuizSubmission.create({
       user,
-      module,
-      quiz,
+      module: moduleId,
+      quiz: quizId,
       answers: evaluatedAnswers,
       score,
     });
 
     return submission;
   },
+//get all submission
+getAllSubmissions: async () => {
+  return QuizSubmission.find()
+    .populate("user")
+    .populate("module")
+    .populate("quiz");
+},
 
 getSubmissionsByUser: async (userId: string) => QuizSubmission.find({ user: userId }).populate('module').populate('quiz'),
 getSubmissionsByQuiz: async (quizId: string) => QuizSubmission.find({ quiz: quizId }).populate('user').populate('module'),

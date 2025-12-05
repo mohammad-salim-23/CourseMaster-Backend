@@ -1,4 +1,5 @@
 import { Assignment } from "../../assignment/assignment.model";
+import { Enrollment } from "../../enrollment/enrollment.model";
 import { Quiz } from "../../quiz/quiz.model";
 import { QuizSubmission } from "../../submitQuiz/quizSubmit.model";
 import { AssignmentSubmission } from "../../submittedAssignment/assignmentSubmission.model";
@@ -20,29 +21,44 @@ return module;
 getModulesByCourse: async (courseId: string) => {
 return Module.find({ course: courseId });
 },
-getModuleDetails:async(moduleId: string, userId?: string)=> {
-    // get module + lessons 
-    const module = await Module.findById(moduleId).lean();
-    if (!module) return null;
+getModuleDetails: async (moduleId: string, userId?: string) => {
+  const module = await Module.findById(moduleId).lean();
+  if (!module) return null;
 
-    // get assignments & quizzes for this module
-    const assignments = await Assignment.find({ module: moduleId }).lean();
-    const quizzes = await Quiz.find({ module: moduleId }).lean();
+  const assignments = await Assignment.find({ module: moduleId }).lean();
+  const quizzes = await Quiz.find({ module: moduleId }).lean();
 
-    // default flags
-    let assignmentSubmitted = false;
-    let quizSubmitted = false;
+  let assignmentSubmitted = false;
+  let quizSubmitted = false;
+  let completed = false;
+  let enrollmentId = null;
 
-    if (userId) {
-      const asub = await AssignmentSubmission.findOne({ module: moduleId, user: userId });
-      const qsub = await QuizSubmission.findOne({ module: moduleId, user: userId });
-      assignmentSubmitted = !!asub;
-      quizSubmitted = !!qsub;
+  if (userId) {
+    const enrollment = await Enrollment.findOne({ user: userId, course: module.course });
+    if (enrollment) {
+      enrollmentId = enrollment._id;
+      completed = enrollment.completedModules.some((m: any) => m.equals(moduleId));
     }
 
-    return { module, assignments, quizzes, assignmentSubmitted, quizSubmitted };
+    const asub = await AssignmentSubmission.findOne({ module: moduleId, user: userId });
+    const qsub = await QuizSubmission.findOne({ module: moduleId, user: userId });
+
+    assignmentSubmitted = !!asub;
+    quizSubmitted = !!qsub;
   }
-,
+
+  return {
+    module,
+    assignments,
+    quizzes,
+    assignmentSubmitted,
+    quizSubmitted,
+    completed,
+    enrollmentId,
+    userId
+  };
+},
+
 updateModule: async (id: string, payload: any) => {
 return Module.findByIdAndUpdate(id, payload, { new: true });
 },

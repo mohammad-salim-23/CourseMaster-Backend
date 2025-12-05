@@ -12,6 +12,12 @@ export const AssignmentSubmissionService = {
       { new: true }
     );
   },
+getAllSubmissions: async () => {
+  return AssignmentSubmission.find()
+    .populate("user")
+    .populate("module")
+    .populate("assignment");
+},
 
   getUserSubmissions: async (userId: string) => {
     return AssignmentSubmission.find({ user: userId })
