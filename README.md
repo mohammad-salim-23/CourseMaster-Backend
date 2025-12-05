@@ -49,7 +49,7 @@ JWT_ACCESS_SECRET=your-secret-key
 JWT_ACCESS_EXPIRES_IN=1d
 4️⃣ Run Project
 Development
-npm run dev
+npm run start:dev
 Production
 npm run build
 npm start

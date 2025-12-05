@@ -4,7 +4,7 @@ import auth from '../../middleware/auth';
 
  const router = Router();
 // Enroll user in course with batch
-router.post('/',auth("user"), EnrollmentController.enroll);
+router.post('/',auth("user","admin"), EnrollmentController.enroll);
 
 // Get all enrollments of user
 router.get('/user/:userId',auth("user","admin"), EnrollmentController.getUserEnrollments);
